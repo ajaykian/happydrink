@@ -3,8 +3,8 @@ import logo                 from '../assets/logo.svg'
 import                           '../css/App.css'
 import { establishments }   from './establishments/Fixtures'
 import Establishment        from './establishments/Establishment'
-import Rebase from 're-base';
-import app from '../Base';
+import Rebase               from 're-base';
+import app                  from '../Base';
 var base = Rebase.createClass(app.database());
 
 class App extends Component {
@@ -12,6 +12,7 @@ class App extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        
         establishments: [
           {
               id          : "0890786GH",
@@ -27,18 +28,45 @@ class App extends Component {
               id          : "MJLMH0389",
               name        : "Batonier",
               description : "Un super bar de fin de soirée"
-          }
+          },
+          {
+            id              : "0890786GI",
+            name            : "Tonton",
+            description     : "Un super bar étudiants",
+            color           : "yellow", 
+        },
+        {
+            id              : "0890786GE",
+            name            : "The Londow Town",
+            description     : "Un super bar à bière",
+            color           : "purple", 
+        },
+        {
+            id              : "NJLH0389",
+            name            : "Australian Bar",
+            description     :"Un super bar dansant",
+            color           : "black", 
+        }
       ]
         // pseudo : "inconnu",
         // searchStringUser: "",
       }
+      
     }
+
+    
+
     componentDidMount(){
       base.syncState(`/`, {
           context: this,
           state: 'establishments',
           asArray: true
       });
+  }
+  componentDidMount(){
+    base.post(`establishments`,{
+      data: this.state.establishments
+    });
   }
 
     handleChange(e){
@@ -86,10 +114,19 @@ class App extends Component {
           <p><a onClick={ this.randomPseudo } >Changer le pseudo !</a></p>
           <input
             type="text"
-            placeholder="search"
+            placeholder="chercher"
             value={this.state.searchStringUser}
             onChange={this.handleChange.bind(this)}
             />
+            <form>
+          <label>
+            Name:
+            <input type="text" name="name" placeholder="ajouter un bar" />
+            Description:
+            <input type="text" name="name" placeholder="Description du bar" />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
           <section>
             { listEstablishment }
           </section>
