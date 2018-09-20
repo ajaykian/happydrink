@@ -25,7 +25,7 @@ export const establishments = [
     },
     {
         id              : "0890786GE",
-        name            : "The Londow Town",
+        name            : "The London Town",
         description     : "Un super bar à bière",
         color           : "purple", 
     },

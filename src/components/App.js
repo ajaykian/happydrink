@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
-import logo                 from '../assets/logo.svg'
-import                           '../css/App.css'
-import { establishments }   from './establishments/Fixtures'
-import Establishment        from './establishments/Establishment'
+import React, { Component } from 'react';
+import logo                 from '../assets/logo.svg';
+import                           '../css/App.css';
+import { establishments }   from './establishments/Fixtures';
+import Establishment        from './establishments/Establishment';
 import Rebase               from 're-base';
 import app                  from '../Base';
+import MessageBox           from './MessageBox';
+import MessageList          from './MessageList';
+import firebase             from 'firebase';
+
 var base = Rebase.createClass(app.database());
 
 class App extends Component {
@@ -37,7 +41,7 @@ class App extends Component {
         },
         {
             id              : "0890786GE",
-            name            : "The Londow Town",
+            name            : "The London Town",
             description     : "Un super bar à bière",
             color           : "purple", 
         },
@@ -118,21 +122,25 @@ class App extends Component {
             value={this.state.searchStringUser}
             onChange={this.handleChange.bind(this)}
             />
-            <form>
-          <label>
-            Name:
-            <input type="text" name="name" placeholder="ajouter un bar" />
-            Description:
-            <input type="text" name="name" placeholder="Description du bar" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
           <section>
             { listEstablishment }
           </section>
         </div>
       </div>
     );
+  }
+  render() {
+    return (
+    <div>
+      <div>
+        <MessageList db={firebase} />
+      </div>
+      <div>
+        <MessageBox db={firebase} />
+      </div>
+    </div>
+      
+    )
   }
 }
 
